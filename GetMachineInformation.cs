@@ -31,76 +31,35 @@ namespace STR.AZFunc
             }
 
             log.LogInformation($"Getting information for machine: {machineID}");
-                     
-             IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
-                .WithTenantId("de46ae9d-eaed-4ac7-91dc-0454e314c3b6")
-                .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
-                .Build();
-          
-            ClientCredentialProvider authProvider = new ClientCredentialProvider(confidentialClientApplication);
-            GraphServiceClient graphClient = new GraphServiceClient(authProvider);         
-            var machineInfo = await graphClient.Users[machineID].Request().GetAsync();
 
-            if (machineInfo == null)
+            IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
+               .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
+               .WithTenantId("de46ae9d-eaed-4ac7-91dc-0454e314c3b6")
+               .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
+               .Build();
+
+            ClientCredentialProvider authProvider = new ClientCredentialProvider(confidentialClientApplication);
+            GraphServiceClient graphClient = new GraphServiceClient(authProvider);
+
+
+            object machineInfo = null;
+            try
+            {
+                machineInfo = await graphClient.Users[machineID].Request().GetAsync();
+            }
+            catch
             {
                 return new OkObjectResult(null);
             }
- 
+
+
             return new OkObjectResult(machineInfo);
 
+
+
+
+
         }
 
-        public static async void SetEventOnPultrusionMachine(ILogger log, string machineid)
-        {
-            // Build a client application.
-            IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
-                .WithTenantId("de46ae9d-eaed-4ac7-91dc-0454e314c3b6")
-                .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
-                .Build();
-
-            // var scopes = new string[] { "https://graph.microsoft.com/.default" };
-
-            // AuthenticationResult authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
-            // log.LogInformation($"retrieved token: {authResult.AccessToken}");
-
-            ClientCredentialProvider authProvider = new ClientCredentialProvider(confidentialClientApplication);
-            // Create a new instance of GraphServiceClient with the authentication provider.
-            GraphServiceClient graphClient = new GraphServiceClient(authProvider);
-
-            //var pm1id = "554061a6-a3c0-44c4-97a3-17681ea361f8";
-
-            var pm1User = await graphClient.Users[machineid].Request().GetAsync();
-
-            log.LogInformation("retrieved pm1");
-
-            // //https://graph.microsoft.com/v1.0/users/554061a6-a3c0-44c4-97a3-17681ea361f8/calendar/events
-
-            DateTime dummyStart = new DateTime(2021, 04, 24, 4, 00, 00);
-            DateTime dummyEnd = new DateTime(2021, 04, 25, 4, 00, 00);
-            Microsoft.Graph.Event dummyEvent = new Event();
-            dummyEvent.Start = DateTimeTimeZone.FromDateTime(dummyStart, "America/New_York");
-            dummyEvent.End = DateTimeTimeZone.FromDateTime(dummyEnd, "America/New_York");
-            dummyEvent.Subject = "Shop Order #12312";
-            var machLocation = new Location();
-            machLocation.DisplayName = "PM-1";
-            dummyEvent.Location = machLocation;
-            dummyEvent.IsReminderOn = false;
-            object setEvent;
-            try
-            {
-                setEvent = await graphClient.Users[machineid].Calendar.Events.Request().AddAsync(dummyEvent);
-                log.LogInformation($"CalendarUID: {((Event)setEvent).ICalUId}");
-            }
-            catch (ServiceException svcerr)
-            {
-                log.LogInformation($"ErrorMSG: {svcerr.Message}");
-                log.LogInformation($"StatusCode:  {svcerr.StatusCode.ToString()}");
-            }
-            var x = 1;
-        }
     }
-
-
 }
