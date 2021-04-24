@@ -20,9 +20,11 @@ namespace STR.AZFunc
             [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Post), Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
+            
             string name = req.Query["name"];
+            string machineID = req.Headers["machineid"];
+
+            log.LogInformation($"Processing event for machine: {machineID}");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
@@ -32,16 +34,13 @@ namespace STR.AZFunc
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
-            SetPM1Event(log);
+            SetEventOnPultrusionMachine(log, machineID);
 
             return new OkObjectResult(responseMessage);
         }
 
-        public static async void SetPM1Event(ILogger log)
+        public static async void SetEventOnPultrusionMachine(ILogger log, string machineid)
         {
-
-            var bodyInfo = "{\"subject\": \"Let's run a part\", \"body\": {\"contentType\": \"HTML\", \"content\": \"Does noon work for you?\" }, \"start\": {  \"dateTime\": \"2021-04-21T12:00:00\",      \"timeZone\": \"Eastern Standard Time\"  },  \"end\": {      \"dateTime\": \"2021-04-22T14:00:00\",      \"timeZone\": \"Eastern Standard Time\"  },  \"location\":{      \"displayName\":\"Harry's Bar\"  }}";
-
             // Build a client application.
             IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
                 .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
@@ -49,46 +48,45 @@ namespace STR.AZFunc
                 .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
                 .Build();
 
-            var scopes = new string[] { "https://graph.microsoft.com/.default" };
+            // var scopes = new string[] { "https://graph.microsoft.com/.default" };
 
-            AuthenticationResult authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
-            log.LogInformation($"retrieved token: {authResult.AccessToken}");
+            // AuthenticationResult authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+            // log.LogInformation($"retrieved token: {authResult.AccessToken}");
 
             ClientCredentialProvider authProvider = new ClientCredentialProvider(confidentialClientApplication);
             // Create a new instance of GraphServiceClient with the authentication provider.
-             GraphServiceClient graphClient = new GraphServiceClient(authProvider);
+            GraphServiceClient graphClient = new GraphServiceClient(authProvider);
 
-            var pm1id = "554061a6-a3c0-44c4-97a3-17681ea361f8";
+            //var pm1id = "554061a6-a3c0-44c4-97a3-17681ea361f8";
 
-            // var user = await graphClient.Me.Request().GetAsync();
-
-            var pm1User = await graphClient.Users[pm1id].Request().GetAsync();
+            var pm1User = await graphClient.Users[machineid].Request().GetAsync();
 
             log.LogInformation("retrieved pm1");
 
             // //https://graph.microsoft.com/v1.0/users/554061a6-a3c0-44c4-97a3-17681ea361f8/calendar/events
 
-            DateTime dummyStart = new DateTime(2021, 04, 23, 5, 10, 00);
-            DateTime dummyEnd = new DateTime(2021, 04, 24, 5, 30, 00);
+            DateTime dummyStart = new DateTime(2021, 04, 24, 4, 00, 00);
+            DateTime dummyEnd = new DateTime(2021, 04, 25, 4, 00, 00);
             Microsoft.Graph.Event dummyEvent = new Event();
             dummyEvent.Start = DateTimeTimeZone.FromDateTime(dummyStart, "America/New_York");
             dummyEvent.End = DateTimeTimeZone.FromDateTime(dummyEnd, "America/New_York");
-            dummyEvent.Subject = "my Test Run";
+            dummyEvent.Subject = "Shop Order #12312";
+            var machLocation = new Location();
+            machLocation.DisplayName = "PM-1";
+            dummyEvent.Location = machLocation;
+            dummyEvent.IsReminderOn = false;
             object setEvent;
-
-
-            // var bearerToken = authProvider.ClientApplication.UserTokenCache..
-
             try
             {
-                setEvent = await graphClient.Users[pm1id].Calendar.Events.Request().AddAsync(dummyEvent);
+                setEvent = await graphClient.Users[machineid].Calendar.Events.Request().AddAsync(dummyEvent);
+                log.LogInformation($"CalendarUID: {((Event)setEvent).ICalUId}");
             }
-            catch (Exception err)
+            catch (ServiceException svcerr)
             {
-                log.LogInformation(err.Message);
+                log.LogInformation($"ErrorMSG: {svcerr.Message}");
+                log.LogInformation($"StatusCode:  {svcerr.StatusCode.ToString()}");
             }
-            var x = 1;
-            log.LogInformation("added calendar event to pm1");
+            var x = 1;            
         }
     }
 
