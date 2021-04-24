@@ -1,0 +1,274 @@
+ public class Event : OutlookItem
+    {
+        //
+        // Summary:
+        //     The Event constructor
+        public Event();
+
+        //
+        // Summary:
+        //     Gets or sets original start. The Timestamp type represents date and time information
+        //     using ISO 8601 format and is always in UTC time. For example, midnight UTC on
+        //     Jan 1, 2014 is 2014-01-01T00:00:00Z
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "originalStart", Required = Required.Default)]
+        public DateTimeOffset? OriginalStart { get; set; }
+        //
+        // Summary:
+        //     Gets or sets original start time zone. The start time zone that was set when
+        //     the event was created. A value of tzone://Microsoft/Custom indicates that a legacy
+        //     custom time zone was set in desktop Outlook.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "originalStartTimeZone", Required = Required.Default)]
+        public string OriginalStartTimeZone { get; set; }
+        //
+        // Summary:
+        //     Gets or sets recurrence. The recurrence pattern for the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recurrence", Required = Required.Default)]
+        public PatternedRecurrence Recurrence { get; set; }
+        //
+        // Summary:
+        //     Gets or sets reminder minutes before start. The number of minutes before the
+        //     event start time that the reminder alert occurs.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reminderMinutesBeforeStart", Required = Required.Default)]
+        public int? ReminderMinutesBeforeStart { get; set; }
+        //
+        // Summary:
+        //     Gets or sets response requested. Default is true, which represents the organizer
+        //     would like an invitee to send a response to the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "responseRequested", Required = Required.Default)]
+        public bool? ResponseRequested { get; set; }
+        //
+        // Summary:
+        //     Gets or sets response status. Indicates the type of response sent in response
+        //     to an event message.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "responseStatus", Required = Required.Default)]
+        public ResponseStatus ResponseStatus { get; set; }
+        //
+        // Summary:
+        //     Gets or sets sensitivity. The possible values are: normal, personal, private,
+        //     confidential.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sensitivity", Required = Required.Default)]
+        public Sensitivity? Sensitivity { get; set; }
+        //
+        // Summary:
+        //     Gets or sets series master id. The ID for the recurring series master item, if
+        //     this event is part of a recurring series.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "seriesMasterId", Required = Required.Default)]
+        public string SeriesMasterId { get; set; }
+        //
+        // Summary:
+        //     Gets or sets original end time zone. The end time zone that was set when the
+        //     event was created. A value of tzone://Microsoft/Custom indicates that a legacy
+        //     custom time zone was set in desktop Outlook.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "originalEndTimeZone", Required = Required.Default)]
+        public string OriginalEndTimeZone { get; set; }
+        //
+        // Summary:
+        //     Gets or sets show as. The status to show. The possible values are: free, tentative,
+        //     busy, oof, workingElsewhere, unknown.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "showAs", Required = Required.Default)]
+        public FreeBusyStatus? ShowAs { get; set; }
+        //
+        // Summary:
+        //     Gets or sets subject. The text of the event's subject line.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subject", Required = Required.Default)]
+        public string Subject { get; set; }
+        //
+        // Summary:
+        //     Gets or sets transaction id. A custom identifier specified by a client app for
+        //     the server to avoid redundant POST operations in case of client retries to create
+        //     the same event. This is useful when low network connectivity causes the client
+        //     to time out before receiving a response from the server for the client's prior
+        //     create-event request. After you set transactionId when creating an event, you
+        //     cannot change transactionId in a subsequent update. This property is only returned
+        //     in a response payload if an app has set it. Optional.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactionId", Required = Required.Default)]
+        public string TransactionId { get; set; }
+        //
+        // Summary:
+        //     Gets or sets type. The event type. The possible values are: singleInstance, occurrence,
+        //     exception, seriesMaster. Read-only.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type", Required = Required.Default)]
+        public EventType? Type { get; set; }
+        //
+        // Summary:
+        //     Gets or sets web link. The URL to open the event in Outlook on the web.Outlook
+        //     on the web opens the event in the browser if you are signed in to your mailbox.
+        //     Otherwise, Outlook on the web prompts you to sign in.This URL cannot be accessed
+        //     from within an iFrame.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "webLink", Required = Required.Default)]
+        public string WebLink { get; set; }
+        //
+        // Summary:
+        //     Gets or sets attachments. The collection of FileAttachment, ItemAttachment, and
+        //     referenceAttachment attachments for the event. Navigation property. Read-only.
+        //     Nullable.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "attachments", Required = Required.Default)]
+        public IEventAttachmentsCollectionPage Attachments { get; set; }
+        //
+        // Summary:
+        //     Gets or sets calendar. The calendar that contains the event. Navigation property.
+        //     Read-only.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "calendar", Required = Required.Default)]
+        public Calendar Calendar { get; set; }
+        //
+        // Summary:
+        //     Gets or sets extensions. The collection of open extensions defined for the event.
+        //     Nullable.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "extensions", Required = Required.Default)]
+        public IEventExtensionsCollectionPage Extensions { get; set; }
+        //
+        // Summary:
+        //     Gets or sets instances. The occurrences of a recurring series, if the event is
+        //     a series master. This property includes occurrences that are part of the recurrence
+        //     pattern, and exceptions that have been modified, but does not include occurrences
+        //     that have been cancelled from the series. Navigation property. Read-only. Nullable.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "instances", Required = Required.Default)]
+        public IEventInstancesCollectionPage Instances { get; set; }
+        //
+        // Summary:
+        //     Gets or sets start. The date, time, and time zone that the event starts. By default,
+        //     the start time is in UTC.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start", Required = Required.Default)]
+        public DateTimeTimeZone Start { get; set; }
+        //
+        // Summary:
+        //     Gets or sets multi value extended properties. The collection of multi-value extended
+        //     properties defined for the event. Read-only. Nullable.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "multiValueExtendedProperties", Required = Required.Default)]
+        public IEventMultiValueExtendedPropertiesCollectionPage MultiValueExtendedProperties { get; set; }
+        //
+        // Summary:
+        //     Gets or sets organizer. The organizer of the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "organizer", Required = Required.Default)]
+        public Recipient Organizer { get; set; }
+        //
+        // Summary:
+        //     Gets or sets online meeting provider. Represents the online meeting service provider.
+        //     The possible values are teamsForBusiness, skypeForBusiness, and skypeForConsumer.
+        //     Optional.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "onlineMeetingProvider", Required = Required.Default)]
+        public OnlineMeetingProviderType? OnlineMeetingProvider { get; set; }
+        //
+        // Summary:
+        //     Gets or sets allow new time proposals. True if the meeting organizer allows invitees
+        //     to propose a new time when responding, false otherwise. Optional. Default is
+        //     true.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "allowNewTimeProposals", Required = Required.Default)]
+        public bool? AllowNewTimeProposals { get; set; }
+        //
+        // Summary:
+        //     Gets or sets attendees. The collection of attendees for the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "attendees", Required = Required.Default)]
+        public IEnumerable<Attendee> Attendees { get; set; }
+        //
+        // Summary:
+        //     Gets or sets body. The body of the message associated with the event. It can
+        //     be in HTML or text format.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "body", Required = Required.Default)]
+        public ItemBody Body { get; set; }
+        //
+        // Summary:
+        //     Gets or sets body preview. The preview of the message associated with the event.
+        //     It is in text format.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bodyPreview", Required = Required.Default)]
+        public string BodyPreview { get; set; }
+        //
+        // Summary:
+        //     Gets or sets end. The date, time, and time zone that the event ends. By default,
+        //     the end time is in UTC.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end", Required = Required.Default)]
+        public DateTimeTimeZone End { get; set; }
+        //
+        // Summary:
+        //     Gets or sets has attachments. Set to true if the event has attachments.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "hasAttachments", Required = Required.Default)]
+        public bool? HasAttachments { get; set; }
+        //
+        // Summary:
+        //     Gets or sets hide attendees. When set to true, each attendee only sees themselves
+        //     in the meeting request and meeting Tracking list. Default is false.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "hideAttendees", Required = Required.Default)]
+        public bool? HideAttendees { get; set; }
+        //
+        // Summary:
+        //     Gets or sets i cal uid. A unique identifier for an event across calendars. This
+        //     ID is different for each occurrence in a recurring series. Read-only.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "iCalUId", Required = Required.Default)]
+        public string ICalUId { get; set; }
+        //
+        // Summary:
+        //     Gets or sets online meeting url. A URL for an online meeting. The property is
+        //     set only when an organizer specifies an event as an online meeting such as a
+        //     Skype meeting. Read-only.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "onlineMeetingUrl", Required = Required.Default)]
+        public string OnlineMeetingUrl { get; set; }
+        //
+        // Summary:
+        //     Gets or sets importance. The importance of the event. The possible values are:
+        //     low, normal, high.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "importance", Required = Required.Default)]
+        public Importance? Importance { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is cancelled. Set to true if the event has been canceled.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isCancelled", Required = Required.Default)]
+        public bool? IsCancelled { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is draft. Set to true if the user has updated the meeting in Outlook
+        //     but has not sent the updates to attendees. Set to false if all changes have been
+        //     sent, or if the event is an appointment without any attendees.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isDraft", Required = Required.Default)]
+        public bool? IsDraft { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is online meeting. True if this event has online meeting information,
+        //     false otherwise. Default is false. Optional.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isOnlineMeeting", Required = Required.Default)]
+        public bool? IsOnlineMeeting { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is organizer. Set to true if the calendar owner (specified by the
+        //     owner property of the calendar) is the organizer of the event (specified by the
+        //     organizer property of the event). This also applies if a delegate organized the
+        //     event on behalf of the owner.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isOrganizer", Required = Required.Default)]
+        public bool? IsOrganizer { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is reminder on. Set to true if an alert is set to remind the user
+        //     of the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isReminderOn", Required = Required.Default)]
+        public bool? IsReminderOn { get; set; }
+        //
+        // Summary:
+        //     Gets or sets location. The location of the event.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "location", Required = Required.Default)]
+        public Location Location { get; set; }
+        //
+        // Summary:
+        //     Gets or sets locations. The locations where the event is held or attended from.
+        //     The location and locations properties always correspond with each other. If you
+        //     update the location property, any prior locations in the locations collection
+        //     would be removed and replaced by the new location value.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "locations", Required = Required.Default)]
+        public IEnumerable<Location> Locations { get; set; }
+        //
+        // Summary:
+        //     Gets or sets online meeting. Details for an attendee to join the meeting online.
+        //     Read-only.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "onlineMeeting", Required = Required.Default)]
+        public OnlineMeetingInfo OnlineMeeting { get; set; }
+        //
+        // Summary:
+        //     Gets or sets is all day. Set to true if the event lasts all day.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "isAllDay", Required = Required.Default)]
+        public bool? IsAllDay { get; set; }
+        //
+        // Summary:
+        //     Gets or sets single value extended properties. The collection of single-value
+        //     extended properties defined for the event. Read-only. Nullable.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "singleValueExtendedProperties", Required = Required.Default)]
+        public IEventSingleValueExtendedPropertiesCollectionPage SingleValueExtendedProperties { get; set; }
+    }
+}
