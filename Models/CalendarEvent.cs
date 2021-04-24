@@ -7,6 +7,8 @@ namespace GraphTutorial.Models
 
     public class EventTimeInfo
     {
+
+
         public DateTime DateTime { get; set; }
 
         public string TimeZone { get; set; }
@@ -24,9 +26,20 @@ namespace GraphTutorial.Models
         public string Content { get; set; }
     }
 
+    public class Location
+    {
+        string DisplayName { get; set; }
+        string LocationType { get; set; }
+        string uniqueId { get; set; }
+        string uniqueIdType { get; set; }
+    }
+
     public class CalendarEvent
     {
-        public string TargetCalendarID { get; set; }
+        public string IcalUId { get; set; }
+
+        public bool isReminderOn { get; set; }
+
         public string Subject { get; set; }
 
         public Body Body { get; set; }
@@ -36,7 +49,7 @@ namespace GraphTutorial.Models
         public EventTimeInfo Start { get; set; }
         public EventTimeInfo End { get; set; }
 
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
     }
 }

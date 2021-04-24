@@ -1,0 +1,155 @@
+{
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('554061a6-a3c0-44c4-97a3-17681ea361f8')/calendar/events",
+    "value": [
+        {
+            "@odata.etag": "W/\"PQA6Q6a01k6xj6Z/tfimYAAAAmkL6w==\"",
+            "id": "AAMkAGJkZjUzOGJhLWYxMmYtNGVkZC05YzI0LWU0MDdlODVjMGFkYwBGAAAAAAA_C6A7QJTKRIeCcS8N36KLBwA9ADpDprTWTrGPpn_1_KZgAAAAAAENAAA9ADpDprTWTrGPpn_1_KZgAAACaXfFAAA=",
+            "createdDateTime": "2021-04-24T14:17:09.3247455Z",
+            "lastModifiedDateTime": "2021-04-24T14:17:09.568602Z",
+            "changeKey": "PQA6Q6a01k6xj6Z/tfimYAAAAmkL6w==",
+            "categories": [],
+            "transactionId": "eabcaeab-0baf-3f57-5252-9b683e8cf2a0",
+            "originalStartTimeZone": "UTC",
+            "originalEndTimeZone": "UTC",
+            "iCalUId": "040000008200E00074C5B7101A82E008000000002FF428831439D701000000000000000010000000B3E9AEDF23C4E2438D0F8768D4B15C33",
+            "reminderMinutesBeforeStart": 420,
+            "isReminderOn": true,
+            "hasAttachments": false,
+            "subject": "test",
+            "bodyPreview": "",
+            "importance": "normal",
+            "sensitivity": "normal",
+            "isAllDay": true,
+            "isCancelled": false,
+            "isOrganizer": true,
+            "responseRequested": true,
+            "seriesMasterId": null,
+            "showAs": "free",
+            "type": "singleInstance",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGJkZjUzOGJhLWYxMmYtNGVkZC05YzI0LWU0MDdlODVjMGFkYwBGAAAAAAA%2BC6A7QJTKRIeCcS8N36KLBwA9ADpDprTWTrGPpn%2B1%2BKZgAAAAAAENAAA9ADpDprTWTrGPpn%2B1%2BKZgAAACaXfFAAA%3D&exvsurl=1&path=/calendar/item",
+            "onlineMeetingUrl": null,
+            "isOnlineMeeting": false,
+            "onlineMeetingProvider": "unknown",
+            "allowNewTimeProposals": true,
+            "occurrenceId": null,
+            "isDraft": false,
+            "hideAttendees": false,
+            "responseStatus": {
+                "response": "organizer",
+                "time": "0001-01-01T00:00:00Z"
+            },
+            "body": {
+                "contentType": "html",
+                "content": ""
+            },
+            "start": {
+                "dateTime": "2021-04-22T00:00:00.0000000",
+                "timeZone": "UTC"
+            },
+            "end": {
+                "dateTime": "2021-04-24T00:00:00.0000000",
+                "timeZone": "UTC"
+            },
+            "location": {
+                "displayName": "PM-2",
+                "locationType": "default",
+                "uniqueId": "PM-2",
+                "uniqueIdType": "private"
+            },
+            "locations": [
+                {
+                    "displayName": "PM-2",
+                    "locationType": "default",
+                    "uniqueId": "PM-2",
+                    "uniqueIdType": "private"
+                }
+            ],
+            "recurrence": null,
+            "attendees": [],
+            "organizer": {
+                "emailAddress": {
+                    "name": "PM-1",
+                    "address": "PM-1@jwwstrdev.onmicrosoft.com"
+                }
+            },
+            "onlineMeeting": null,
+            "calendar@odata.associationLink": "https://graph.microsoft.com/v1.0/users('554061a6-a3c0-44c4-97a3-17681ea361f8')/calendars('AQMkAGJkZjUzOGJhLWYxMmYtNGVkZAAtOWMyNC1lNDA3ZTg1YzBhZGMARgAAAz4LoDtAlMpEh4JxLw3foosHAD0AOkOmtNZOsY_mf7X4pmAAAAIBBgAAAD0AOkOmtNZOsY_mf7X4pmAAAAIjFQAAAA==')/$ref",
+            "calendar@odata.navigationLink": "https://graph.microsoft.com/v1.0/users('554061a6-a3c0-44c4-97a3-17681ea361f8')/calendars('AQMkAGJkZjUzOGJhLWYxMmYtNGVkZAAtOWMyNC1lNDA3ZTg1YzBhZGMARgAAAz4LoDtAlMpEh4JxLw3foosHAD0AOkOmtNZOsY_mf7X4pmAAAAIBBgAAAD0AOkOmtNZOsY_mf7X4pmAAAAIjFQAAAA==')"
+        },
+        {
+            "@odata.etag": "W/\"PQA6Q6a01k6xj6Z/tfimYAAAAmkL5w==\"",
+            "id": "AAMkAGJkZjUzOGJhLWYxMmYtNGVkZC05YzI0LWU0MDdlODVjMGFkYwBGAAAAAAA_C6A7QJTKRIeCcS8N36KLBwA9ADpDprTWTrGPpn_1_KZgAAAAAAENAAA9ADpDprTWTrGPpn_1_KZgAAACaXfEAAA=",
+            "createdDateTime": "2021-04-24T14:15:22.6422367Z",
+            "lastModifiedDateTime": "2021-04-24T14:15:22.6652234Z",
+            "changeKey": "PQA6Q6a01k6xj6Z/tfimYAAAAmkL5w==",
+            "categories": [],
+            "transactionId": null,
+            "originalStartTimeZone": "America/New_York",
+            "originalEndTimeZone": "America/New_York",
+            "iCalUId": "040000008200E00074C5B7101A82E00800000000681F91431439D7010000000000000000100000009848F06FD5103547898A3D57ABF9184F",
+            "reminderMinutesBeforeStart": 15,
+            "isReminderOn": false,
+            "hasAttachments": false,
+            "subject": "Shop Order #12312",
+            "bodyPreview": "",
+            "importance": "normal",
+            "sensitivity": "normal",
+            "isAllDay": false,
+            "isCancelled": false,
+            "isOrganizer": true,
+            "responseRequested": true,
+            "seriesMasterId": null,
+            "showAs": "busy",
+            "type": "singleInstance",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGJkZjUzOGJhLWYxMmYtNGVkZC05YzI0LWU0MDdlODVjMGFkYwBGAAAAAAA%2BC6A7QJTKRIeCcS8N36KLBwA9ADpDprTWTrGPpn%2B1%2BKZgAAAAAAENAAA9ADpDprTWTrGPpn%2B1%2BKZgAAACaXfEAAA%3D&exvsurl=1&path=/calendar/item",
+            "onlineMeetingUrl": null,
+            "isOnlineMeeting": false,
+            "onlineMeetingProvider": "unknown",
+            "allowNewTimeProposals": true,
+            "occurrenceId": null,
+            "isDraft": false,
+            "hideAttendees": false,
+            "responseStatus": {
+                "response": "organizer",
+                "time": "0001-01-01T00:00:00Z"
+            },
+            "body": {
+                "contentType": "html",
+                "content": "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n<meta name=\"Generator\" content=\"Microsoft Exchange Server\">\r\n<!-- converted from text -->\r\n<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style></head>\r\n<body>\r\n<font size=\"2\"><span style=\"font-size:11pt;\"><div class=\"PlainText\">&nbsp;</div></span></font>\r\n</body>\r\n</html>\r\n"
+            },
+            "start": {
+                "dateTime": "2021-04-24T08:00:00.0000000",
+                "timeZone": "UTC"
+            },
+            "end": {
+                "dateTime": "2021-04-25T08:00:00.0000000",
+                "timeZone": "UTC"
+            },
+            "location": {
+                "displayName": "PM-1",
+                "locationType": "default",
+                "uniqueId": "PM-1",
+                "uniqueIdType": "private"
+            },
+            "locations": [
+                {
+                    "displayName": "PM-1",
+                    "locationType": "default",
+                    "uniqueId": "PM-1",
+                    "uniqueIdType": "private"
+                }
+            ],
+            "recurrence": null,
+            "attendees": [],
+            "organizer": {
+                "emailAddress": {
+                    "name": "PM-1",
+                    "address": "PM-1@jwwstrdev.onmicrosoft.com"
+                }
+            },
+            "onlineMeeting": null,
+            "calendar@odata.associationLink": "https://graph.microsoft.com/v1.0/users('554061a6-a3c0-44c4-97a3-17681ea361f8')/calendars('AQMkAGJkZjUzOGJhLWYxMmYtNGVkZAAtOWMyNC1lNDA3ZTg1YzBhZGMARgAAAz4LoDtAlMpEh4JxLw3foosHAD0AOkOmtNZOsY_mf7X4pmAAAAIBBgAAAD0AOkOmtNZOsY_mf7X4pmAAAAIjFQAAAA==')/$ref",
+            "calendar@odata.navigationLink": "https://graph.microsoft.com/v1.0/users('554061a6-a3c0-44c4-97a3-17681ea361f8')/calendars('AQMkAGJkZjUzOGJhLWYxMmYtNGVkZAAtOWMyNC1lNDA3ZTg1YzBhZGMARgAAAz4LoDtAlMpEh4JxLw3foosHAD0AOkOmtNZOsY_mf7X4pmAAAAIBBgAAAD0AOkOmtNZOsY_mf7X4pmAAAAIjFQAAAA==')"
+        }
+    ]
+}
