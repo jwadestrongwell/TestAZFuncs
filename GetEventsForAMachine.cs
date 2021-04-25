@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
+using System.Web.Http;
+using System.Collections.Generic;
 
 namespace STR.AZFunc
 {
@@ -22,62 +24,56 @@ namespace STR.AZFunc
         {
             string machineID = req.Headers["machineid"];
 
-            string responseMessage = string.IsNullOrEmpty(machineID)
-                           ? "Machine Information Required."
-                           : $"Getting Listing of Events for Machine {machineID}";
+            string startDate = req.Query["startdate"];
 
-            GetEventsOnPultrusionMachine(log, machineID);
-          
+            string endDate = req.Query["enddate"];
+
+            if (string.IsNullOrEmpty(machineID))
+            {
+                log.LogError("Invalid app settings configured - missing MachineID");
+                return new InternalServerErrorResult();
+            }
+
+            if (string.IsNullOrEmpty(startDate) ||
+               string.IsNullOrEmpty(endDate))
+            {
+                log.LogError("Invalid app settings configured- missing start or end date");
+                return new InternalServerErrorResult();
+            }
+
             log.LogInformation($"Getting listing of events for machine: {machineID}");
-          
-
-            GetEventsOnPultrusionMachine(log, machineID);
-
-            return new OkObjectResult(responseMessage);
-        }
-
-        public static async void GetEventsOnPultrusionMachine(ILogger log, string machineid)
-        {
-            // Build a client application.
             IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
-                .WithTenantId("de46ae9d-eaed-4ac7-91dc-0454e314c3b6")
-                .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
-                .Build();
-         
+               .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
+               .WithTenantId("de46ae9d-eaed-4ac7-91dc-0454e314c3b6")
+               .WithClientSecret("~62MsXzg2zvSn~ZoqkCz-k-4-kIC5I~l9e")
+               .Build();
+
             ClientCredentialProvider authProvider = new ClientCredentialProvider(confidentialClientApplication);
             GraphServiceClient graphClient = new GraphServiceClient(authProvider);
 
-            var pm1User = await graphClient.Users[machineid].Request().GetAsync();
 
-            log.LogInformation("retrieved pm1");
+            var queryOptions = new List<Microsoft.Graph.QueryOption>()
+            {
+                new Microsoft.Graph.QueryOption("startDateTime", startDate),
+                new Microsoft.Graph.QueryOption("endDateTime", endDate)
+            };
 
-            // //https://graph.microsoft.com/v1.0/users/554061a6-a3c0-44c4-97a3-17681ea361f8/calendar/events
 
-            DateTime dummyStart = new DateTime(2021, 04, 24, 4, 00, 00);
-            DateTime dummyEnd = new DateTime(2021, 04, 25, 4, 00, 00);
-            Microsoft.Graph.Event dummyEvent = new Event();
-            dummyEvent.Start = DateTimeTimeZone.FromDateTime(dummyStart, "America/New_York");
-            dummyEvent.End = DateTimeTimeZone.FromDateTime(dummyEnd, "America/New_York");
-            dummyEvent.Subject = "Shop Order #12312";
-            var machLocation = new Location();
-            machLocation.DisplayName = "PM-1";
-            dummyEvent.Location = machLocation;
-            dummyEvent.IsReminderOn = false;
-            object setEvent;
+            object machineEventsList = null;
             try
             {
-                setEvent = await graphClient.Users[machineid].Calendar.Events.Request().AddAsync(dummyEvent);
-                log.LogInformation($"CalendarUID: {((Event)setEvent).ICalUId}");
+                machineEventsList = await graphClient.Users[machineID].CalendarView.Request(queryOptions).GetAsync();
             }
-            catch (ServiceException svcerr)
+            catch
             {
-                log.LogInformation($"ErrorMSG: {svcerr.Message}");
-                log.LogInformation($"StatusCode:  {svcerr.StatusCode.ToString()}");
+                return new OkObjectResult(null);
             }
-            var x = 1;
+
+
+            return new OkObjectResult(machineEventsList);
         }
     }
-
-
 }
+
+
+
