@@ -15,23 +15,15 @@ using System.Collections.Generic;
 
 namespace STR.AZFunc
 {
-    public static class GetAllPMMachinesForLocation
+    public static class GetAllPMMachines
     {
-        [FunctionName("GetAllPMMachinesForLocation")]
+        [FunctionName("GetAllPMMachines")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, nameof(HttpMethods.Get), Route = null)] HttpRequest req,
             ILogger log)
-        {
+        {           
 
-            string locationName = req.Query["location"];
-
-            if (string.IsNullOrEmpty(locationName))
-            {
-                log.LogError("Invalid app settings configured - Location not specified");
-                return new InternalServerErrorResult();
-            }
-
-            log.LogInformation($"Getting all PM machines for: {locationName}");
+            log.LogInformation($"Getting all PM machines");
 
             IConfidentialClientApplication confidentialClientApplication = ConfidentialClientApplicationBuilder
                .Create("60840d11-dbd4-4927-92e8-c10656621ddb")
@@ -45,8 +37,8 @@ namespace STR.AZFunc
             object machineList = null;
             try
             {
-               
-                 string filterString = $"startswith(displayName, 'PM-')";               
+                              
+                string filterString = $"startswith(displayName, 'PM-')";               
                 var request = graphClient.Users.Request().Filter(filterString).Select(x => new
                 {
                     x.Id,
